@@ -1,0 +1,5 @@
+{
+    "intro": "Time.  Lovely, lovely time.  It took you a little over a week to reach the grand city, and you were careful to make the absolute least of it.  Sitting in the back of a pulled wagon, you stared listlessly at the sky and did absolutely nothing.  No abstract, constructive, or speculative thoughts.  As a result, you had an extra week stored up when you finally arrived.",
+    "lumber-keep": "You hop off near the lumber mill.  It's in decent shape, like the letter said.  It just needs a bit of work to be fully functional.  The foreman had already hired their replacement, but agrees to show you around the place when you ask.",
+    "continue-button": ["lumber-keep"]
+}

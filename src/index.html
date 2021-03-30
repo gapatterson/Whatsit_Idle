@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{htmlWebpackPlugin.options.title}}</title>
+  <link rel="icon" type="image/png" href="./img/log.png"/>
+
+  <!-- Needed to have global variables stored under gameVars -->
+  <script>
+    var gameVars = {
+      "savedTime": 604800, // 604800 seconds in a week
+      "coins": 100,
+      "startTime": new Date(),
+      "lastSeen": new Date(),
+      "logContents": ['intro', 'lumber-keep'],
+      "unlocked": [],
+      "ownedBusinesses": new Array(),
+      "globalEvents": [],
+      "inventories": {},
+      "ownedConsultants": {'You':{
+        title: "You",
+        skills: {
+          barter: 2
+        },
+        title: "Big Jim",
+        skills: {
+          construction: 7
+        }
+      }},
+    };
+    if ('lastSeen' in localStorage){
+      for (let item in gameVars){
+        if (item in localStorage){
+          gameVars[item] = JSON.parse(localStorage.getItem(item));
+        } else {
+          console.log(`${item} not saved locally, using default ${gameVars[item]}`);
+        }
+      }
+      console.log(`Save loaded.  Last seen: ${gameVars['lastSeen']}`);
+
+    } else {
+      for (let item in gameVars){
+        localStorage.setItem(item, JSON.stringify(gameVars[item]));
+      }
+      console.log('New game.  Welcome.')
+    }
+
+    var pressedKeys = [];
+
+    // prevent space scrolling
+    window.addEventListener('keydown', function(e) {
+      if(e.keyCode == 32 && (e.target == document.body || e.target.classList.contains('nav-link'))) {
+        e.preventDefault();
+      }
+      return false;
+    });
+  </script>
+
+</head>
+<body>
+  <!-- Main body -->
+  <div class="container">
+    <div class="row">
+      <h1>Whatsit: Time Shuttered</h1>
+    </div>
+    <div class="row flex-grow-1">
+      <!-- Currencies -->
+      <div class="col-2 border rounded">
+        <div id="stats-list">
+          <h3>Currencies</h3>
+          <div id="currency-list">
+          </div>
+        </div>
+      </div>
+
+      <!-- Internal Tabs -->
+      <div class="col-lg">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li id="time-tab-label" class="nav-item">
+            <a class="nav-link active" data-toggle="tab" role="tab" href="#time-tab-content">Time</a>
+          </li>
+          <li id="business-tab-label" class="nav-item" style="display: none">
+            <a id="business-tab-button" class="nav-link" data-toggle="tab" role="tab" href="#business-tab-content">Business</a>
+          </li>
+          <li id="settings" class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#setting-tab-content">Settings</a>
+          </li>
+        </ul>
+
+        <div id="tabs-content" class="tab-content border rounded-bottom rounded-lg">
+          <div role="tabpanel" id="time-tab-content" class="tab-pane fade-in show active">
+            <div id="time-log" class="overflow-auto card m-1" style="max-height:250px;"></div>
+          </div>
+          <div role="tabpanel" id="business-tab-content" class="tab-pane fade-in">
+          </div>
+          <div role="tabpanel" id="setting-tab-content" class="tab-pane fade-in border">
+            <button id="soft-reset-button">Soft Reset</button>
+            <button id="add-day-to-businesses">Progress Businesses</button>
+            <button id="week-output-positive">cash positive business</button>
+            <button id="clear-inventory-button">Clear Inv</button>
+            <button id="droppable-slots-button">make slots droppable</button>
+            <button id="give-1k-cash-button">Give Cash</button>
+            <button id="print-hut-button">Print Hut</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div class="col-2 border rounded p-1">
+        <div id="inventories">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

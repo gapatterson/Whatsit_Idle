@@ -1,0 +1,9 @@
+{
+  "lumber": {
+    "woodworking": 0.5,
+    "forestry": 0.5
+  },
+  "mushroom_underground": {
+    "mycology": 2.0
+  }
+}

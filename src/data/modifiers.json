@@ -1,0 +1,10 @@
+{
+  "outdoor": {
+    "heavy storm": -20,
+    "light rain": -10,
+    "damp": -5
+  },
+  "underground": {
+    "tremors": -50
+  }
+}

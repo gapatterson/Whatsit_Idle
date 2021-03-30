@@ -1,0 +1,36 @@
+{
+  "name": "Whatsit: Time Shuttered",
+  "version": "0.1.0",
+  "description": "a tool for me to learn javascript",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack --config ./build/webpack.config.js",
+    "start": "webpack-dev-server --config ./build/webpack.config.js"
+  },
+  "author": "@gapatterson",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "favicons-webpack-plugin": "^4.2.0",
+    "jquery": "^3.5.1",
+    "jquery-ui": "^1.12.1",
+    "popper.js": "^1.16.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "css-loader": "^4.2.2",
+    "file-loader": "^6.1.0",
+    "handlebars": "^4.7.6",
+    "handlebars-loader": "^1.7.1",
+    "html-webpack-plugin": "^4.4.1",
+    "image-webpack-loader": "^6.0.0",
+    "mini-css-extract-plugin": "^0.11.0",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^4.0.0",
+    "precompile-handlebars": "^1.0.5",
+    "sass-loader": "^10.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

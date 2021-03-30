@@ -1,0 +1,57 @@
+<div id="\{{id}}-container" class="container border p-2">
+  <div class="row">
+    <!-- Left side -->
+    <div class="col-6">
+      <h4>\{{title}}</h4>
+      <!-- Progress Bar -->
+      <div class="progress position-relative speedable" data-owner="\{{id}}">
+          <div id="\{{id}}-progress-natural" class="progress-bar bg-info" style="width: 0%" role="progressbar">
+            <small id="\{{id}}-progress-label" class="justify-content-center d-flex position-absolute w-100">.</small>
+          </div>
+          <div id="\{{id}}-progress-player" class="progress-bar bg-success" style="width: 0%" role="progressbar"></div>
+      </div>
+      <!-- Input Output -->
+      <div class="row input-side">
+        <div class="col-6 border-right" align="center">
+          XXXINPUTXXX
+          <p>input</p>
+          <button id="\{{id}}-upgrade-button" class="btn btn-outline-secondary mx-auto">Upgrade</button>
+          <p>(\{{workers}}/\{{workersMin}}) workers</p>
+        </div>
+        <div class="col-6" align="center">
+          XXXOUTPUTXXX
+          <p>output</p>
+          <button id="\{{id}}-invest-button" class="btn btn-outline-secondary mx-auto" data-toggle="modal" data-target="#\{{id}}-investment-modal">Invest</button>
+          <p>(\{{value}}/\{{upgradeValue}}) value</p>
+        </div>
+      </div>
+      <!-- Input Output End -->
+    </div>
+    <!-- Right Side -->
+    <div class="col-6 right-side">
+      <div class="card bg-light border">
+        <h5>Week's output:</h5>
+        <div style="height:150px;" class="overflow-auto">
+          <div class="card-text" id="\{{id}}-output-log">
+            \{{{dailyReport}}}
+            \{{{weekSummary}}}
+          </div>
+        </div>
+      </div>
+      <!-- staff, contract, new week buttons -->
+      <br/>
+      <div class="row">
+        <div class="col" align="center">
+          <button id="\{{id}}-worker-button" class="btn btn-outline-secondary mx-auto" disabled>Staff</button>
+        </div>
+        <div class="col" align="center">
+          <button id="\{{id}}-contract-button" class="btn btn-outline-secondary mx-auto" disabled>Contracts</button>
+        </div>
+        <div class="col" align="center">
+          <button id="\{{id}}-week-reset-button" class="btn btn-outline-secondary mx-auto" XXXNEWWEEKXXX>New Week</button>
+        </div>
+      </div>
+    </div>
+    <!-- Right Side End -->
+  </div>
+</div>
