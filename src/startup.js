@@ -1,5 +1,9 @@
 import {Business} from './business.js';
 import {Inventory, formatTime} from './toolset.js';
+import changelogData from './data/changelog.json';
+
+const Handlebars = require('handlebars');
+var changelog = Handlebars.compile(require('./templates/changelog-modal.hbs')());
 
 // expect this to grow
 function catchUp(){
@@ -21,6 +25,18 @@ function catchUp(){
 
 function startupScript(){
   $('#version-number').text('\t' + __VERSION__);
+
+  // Changelog, add new entries in ./data/changelog.json
+  if (!(gameVars['lastSeenVersion'] == __VERSION__)){
+    var changeLogText = changelog(changelogData);
+    $(changeLogText).appendTo('body');
+    $('#changelog-modal').show();
+    $('#button-close-changelog').on('click', function(){
+      $('#changelog-modal').remove();
+      gameVars['lastSeenVersion'] = __VERSION__;
+    });
+  }
+
 
   // set prototypes for everything
   gameVars['ownedBusinesses'].forEach((business) => {
