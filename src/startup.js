@@ -49,7 +49,7 @@ function startupScript(){
   // reveal unlocked items
   gameVars['unlocked'].forEach((tag) => {
     console.log(`${tag} already unlocked`);
-    $(`${tag}`).show();
+    $(`#${tag}`).show();
   });
 
   // progress time for everything
