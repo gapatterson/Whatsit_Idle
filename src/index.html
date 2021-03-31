@@ -8,6 +8,8 @@
   <!-- Needed to have global variables stored under gameVars -->
   <script>
     var gameVars = {
+      "lastSeenVersion": '0.0.0',
+      "saveOnReload": true,
       "savedTime": 604800, // 604800 seconds in a week
       "coins": 100,
       "startTime": new Date(),
@@ -54,6 +56,7 @@
       }
       return false;
     });
+
   </script>
 
 </head>
@@ -62,6 +65,7 @@
   <div class="container">
     <div class="row">
       <h1>Whatsit: Time Shuttered</h1>
+      <p id="version-number"></p>
     </div>
     <div class="row flex-grow-1">
       <!-- Currencies -->
@@ -95,6 +99,7 @@
           </div>
           <div role="tabpanel" id="setting-tab-content" class="tab-pane fade-in border">
             <button id="soft-reset-button">Soft Reset</button>
+            <button id="hard-reset-button">Hard Reset</button>
             <button id="add-day-to-businesses">Progress Businesses</button>
             <button id="week-output-positive">cash positive business</button>
             <button id="clear-inventory-button">Clear Inv</button>

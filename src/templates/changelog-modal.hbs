@@ -1,0 +1,27 @@
+<div id="changelog-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Changelog</h5>
+        <button id='button-close-changelog' type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row-12 justify-content-centered">
+          <p>Note: this game is not finished.  You WILL lose your data.</p>
+          <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 500px; max-height: 300px;">
+            \{{#each entries}}
+                <hr />
+                <h5>\{{@key}}</h5>
+                \{{#each this}}
+                      <p style="margin:0">- \{{this}}</p>
+                \{{/each}}
+            \{{/each}}
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

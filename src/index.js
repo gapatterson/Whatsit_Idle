@@ -7,12 +7,9 @@ import {startupScript} from './startup.js';
 
 const SPEEDING_RATE = 7500;
 
-
 function incrementTime(quantity) {
   gameVars['savedTime'] += quantity;
 };
-
-
 
 function updateStatsDisplay() {
   // Clear current stat box
@@ -218,6 +215,11 @@ $(document).ready(function(){
     gameVars['coins'] = 100;
     location.reload();
   })
+  $("#hard-reset-button").on('click', function(){
+    localStorage.removeItem('lastSeen');
+    gameVars['saveOnReload'] = false;
+    location.reload();
+  })
   $("#add-day-to-businesses").on('click', function(){
     gameVars['ownedBusinesses'].forEach((business) => {
       business.addProgress(43200);
@@ -289,7 +291,9 @@ $(document).ready(function(){
 });
 
 window.addEventListener("beforeunload", function(e){
-  save();
+  if (gameVars['saveOnReload']){
+    save();
+  }
 }, false);
 
 function keyFunctionality(e){
