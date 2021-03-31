@@ -20,6 +20,8 @@ function catchUp(){
 }
 
 function startupScript(){
+  $('#version-number').text('\t' + __VERSION__);
+
   // set prototypes for everything
   gameVars['ownedBusinesses'].forEach((business) => {
     Object.setPrototypeOf(business, Business.prototype);
@@ -31,7 +33,7 @@ function startupScript(){
   // reveal unlocked items
   gameVars['unlocked'].forEach((tag) => {
     console.log(`${tag} already unlocked`);
-    $(`#${tag}`).show();
+    $(`${tag}`).show();
   });
 
   // progress time for everything

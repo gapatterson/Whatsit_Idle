@@ -65,6 +65,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+          __VERSION__: JSON.stringify(require("../package.json").version)
+        }),
         new webpack.LoaderOptionsPlugin({
           options: {
             handlebarsLoader: {}
@@ -72,7 +75,8 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
           $: 'jquery',
-          jQuery: 'jquery'
+          jQuery: 'jquery',
+
         }),
         new MiniCssExtractPlugin({
           filename: "[name]-styles.css",

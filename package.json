@@ -1,11 +1,12 @@
 {
-  "name": "Whatsit: Time Shuttered",
-  "version": "0.1.0",
-  "description": "a tool for me to learn javascript",
+  "name": "Whatsit_Time_Shuttered",
+  "version": "0.1.2",
+  "description": "a tool for me to learn basic web dev",
   "main": "./src/index.js",
   "scripts": {
-    "build": "webpack --config ./build/webpack.config.js",
-    "start": "webpack-dev-server --config ./build/webpack.config.js"
+    "start": "webpack-dev-server --config ./build/webpack.config.js",
+    "build": "npm --no-git-tag-version version patch && webpack --config ./build/webpack.config.js",
+    "publish": "echo publishing v$npm_package_version && cp -r ./dist/* ../website/ && cd ../website && git add . && git commit -m\"auto-deploy for v$npm_package_version\" && git push origin master"
   },
   "author": "@gapatterson",
   "license": "MIT",

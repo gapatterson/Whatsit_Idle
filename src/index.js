@@ -7,7 +7,6 @@ import {startupScript} from './startup.js';
 
 const SPEEDING_RATE = 7500;
 
-
 function incrementTime(quantity) {
   gameVars['savedTime'] += quantity;
 };
