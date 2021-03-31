@@ -312,6 +312,7 @@ function formatTime(seconds){
   return returnStr;
 }
 
+// call w/ something like 2d6+1d4 or 1d4-5
 function rollDice(dice){
   // add a + if the first digit is not negative.  helps w/ regex.
 	if (dice[0] != '-'){

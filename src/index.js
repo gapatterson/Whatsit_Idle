@@ -273,14 +273,10 @@ $(document).ready(function(){
   updateInventories();
   updateBusinesses();
 
-  // Speedable stuff
-
-
-
 
   // Repeated events
   setInterval(updateStatsDisplay, 20); //~60fps
-  setInterval(function(){incrementTime(1);}, 1000 * 1); //add 1 second per second
+  setInterval(function(){incrementTime(1);}, 1000); //add 1 second per second
   setInterval(function(){
     for (var business of gameVars['ownedBusinesses']){
       business.addProgress();

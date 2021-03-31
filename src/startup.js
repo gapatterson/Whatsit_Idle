@@ -27,6 +27,7 @@ function startupScript(){
   $('#version-number').text('\t' + __VERSION__);
 
   // Changelog, add new entries in ./data/changelog.json
+  // don't show if player has already seen changelog for this version
   if (!(gameVars['lastSeenVersion'] == __VERSION__)){
     var changeLogText = changelog(changelogData);
     $(changeLogText).appendTo('body');
