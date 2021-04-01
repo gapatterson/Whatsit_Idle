@@ -1,5 +1,6 @@
 {
   "entries":{
+    "0.1.5": ["changelog only shows when appropriate"],
     "0.1.3": ["changelog added", "hard reset added"],
     "0.1.2": ["wait, what"]
   }

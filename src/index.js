@@ -83,8 +83,9 @@ function updateBusinesses(){
     if (0 < $('.crystal').length){
       business.crystalize();
     }
-    business.activateButtons();
 
+    // also updates investment panel
+    business.activateButtons();
   });
 
   makeItemsDraggable();
@@ -100,15 +101,15 @@ function transferItem(sourceInvItem, targetInvSlot){
 
   // Currently either 'inventory' or 'business'
   var types = [
-    cards[0].data('containing-inventory').split(/-(.+)/)[0],
-    cards[1].data('containing-inventory').split(/-(.+)/)[0]
+    $(cards[0]).data('containing-inventory').split(/-(.+)/)[0],
+    $(cards[1]).data('containing-inventory').split(/-(.+)/)[0]
   ];
 
   // your-inventory
   // jim-s-lumber-hut-output
   var titles = [
-    cards[0].data('containing-inventory').substring(types[0].length+1, cards[0].data('containing-inventory').length),
-    cards[1].data('containing-inventory').substring(types[1].length+1, cards[1].data('containing-inventory').length)
+    $(cards[0]).data('containing-inventory').substring(types[0].length+1, $(cards[0]).data('containing-inventory').length),
+    $(cards[1]).data('containing-inventory').substring(types[1].length+1, $(cards[1]).data('containing-inventory').length)
   ];
 
   // used to store js locations of items to swap
@@ -131,10 +132,10 @@ function transferItem(sourceInvItem, targetInvSlot){
       finalValues[refList[i]+'Obj'] = gameVars['ownedBusinesses'][businessIndex][businessSlot];
 
       // arguments[i] gives source, then target dependant on transferItem(sourceInvItem, targetInvSlot) declaration
-      if (arguments[i].data('inventory-slot-number') === undefined){
-        finalValues[refList[i]+'Key'] = arguments[i].parent().data('inventory-slot-number');
+      if ($(arguments[i]).data('inventory-slot-number') === undefined){
+        finalValues[refList[i]+'Key'] = $(arguments[i]).parent().data('inventory-slot-number');
       } else { // empty slot
-        finalValues[refList[i]+'Key'] = arguments[i].data('inventory-slot-number');
+        finalValues[refList[i]+'Key'] = $(arguments[i]).data('inventory-slot-number');
       }
 
     }else{
@@ -167,6 +168,14 @@ function updateInventories(){
       }
       $('#inventories').append(inv.card);
     }
+  }
+
+  // update open investmentpanels
+  var investmentCards = $("div[id$='-investment-card']");
+  if (0 < investmentCards.length){
+    var activeBusiness = getBusiness($(investmentCards[0]).data('parent'));
+
+    $(`#${activeBusiness.id}-investment`).replaceWith(activeBusiness.investmentInventory.card);
   }
 
   makeItemsDraggable();
