@@ -27,13 +27,15 @@ function startupScript(){
   $('#version-number').text('\t' + __VERSION__);
 
   // Changelog, add new entries in ./data/changelog.json
-  if (!(gameVars['lastSeenVersion'] == __VERSION__)){
+  // don't show if player has already seen changelog for the most recent commented version
+  var lastCommentedChangelogVersion = Object.keys(changelogData)[0]
+  if (gameVars['lastSeenVersion'] != lastCommentedChangelogVersion){
     var changeLogText = changelog(changelogData);
     $(changeLogText).appendTo('body');
     $('#changelog-modal').show();
     $('#button-close-changelog').on('click', function(){
       $('#changelog-modal').remove();
-      gameVars['lastSeenVersion'] = __VERSION__;
+      gameVars['lastSeenVersion'] = lastCommentedChangelogVersion;
     });
   }
 

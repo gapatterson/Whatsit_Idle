@@ -51,6 +51,7 @@
 
     // prevent space scrolling
     window.addEventListener('keydown', function(e) {
+      // 32 is keycode for space bar
       if(e.keyCode == 32 && (e.target == document.body || e.target.classList.contains('nav-link'))) {
         e.preventDefault();
       }

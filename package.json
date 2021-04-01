@@ -1,6 +1,6 @@
 {
   "name": "Whatsit_Time_Shuttered",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a tool for me to learn basic web dev",
   "main": "./src/index.js",
   "scripts": {

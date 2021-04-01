@@ -201,8 +201,6 @@ function businessInvestmentPopup(money, business){
     }
     materialValue = Math.ceil((rawMaterialValue/2) * (1+((5+constructionRoll)/20)))
     outcomeText += `): +${materialValue} value`;
-  } else {
-    console.log('DELME materials totally empty dawg')
   }
 
   popUp = popUp.replace('XXXINVESTMENTRESULTSKILLSXXX', skillsText);
@@ -786,7 +784,6 @@ class Business{
   updateProgressBar(){
     $('#'+this.id+'-progress-natural').css("width", `${parseInt(this.progress/6048)}%`);
     $('#'+this.id+'-progress-player').css("width", `${parseInt(this.progressPlayer/6048)}%`);
-
 
     var innerStr = `[${parseInt(this.progress+this.progressPlayer)}/604800]  ||  `+((this.progress+this.progressPlayer)/6048).toFixed(2) + "%  ||  "
 
