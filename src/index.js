@@ -1,7 +1,7 @@
 import 'bootstrap';
 import './main.scss';
 import log from './data/log.json';
-import {Business, upgradeList} from './business.js';
+import {Business, BusinessEvent, upgradeList} from './business.js';
 import {makeItemsDraggable, formatTime, floater, pluralize, humanizedMap, Inventory, itemList, Item, makeSlotsDroppable, getBusiness, save} from './toolset.js';
 import {startupScript} from './startup.js';
 
@@ -38,11 +38,14 @@ function addContinueButton(label){
 
       $('#' + tempId).remove();
       gameVars['unlocked'].push('business-tab-label');
-      var lumberHut = new Business("Jim's Lumber Hut", 4750, [itemList.log], [itemList.log], [upgradeList.outputSlot, upgradeList.inputSlot], 'outdoor', 'lumber', 4);
+      var lumberHut = new Business("Jim's Lumber Hut", 4750, [itemList.log], [itemList.log], [upgradeList.outputSlot, upgradeList.inputSlot], 'outdoor', 'lumber', 3);
 
       // initial businesses on first run
       gameVars['ownedBusinesses'].push(lumberHut);
       gameVars['ownedBusinesses'].push(new Business("aaa", 5000, [], [], [], 'underground', 'mushroom_underground', 3));
+
+      // starting events must be added after business exists
+      getBusiness(lumberHut).addEvent(new BusinessEvent('Foreman\'s Assistance', "The Foreman agrees to stick around for a week to show you the ropes.", 7, ['workers', 1]));
 
       updateBusinesses();
     });

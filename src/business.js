@@ -1,7 +1,7 @@
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
-import {Inventory, makeItemsDraggable, makeSlotsDroppable, formatTime, rollDice, floater, itemList, getBestConsultant, sliceAfterBefore} from './toolset.js';
+import {Inventory, makeItemsDraggable, makeSlotsDroppable, formatTime, rollDice, floater, itemList, getBestConsultant, getBusiness, sliceAfterBefore} from './toolset.js';
 import globalMods from './data/modifiers.json';
 import skillRelations from './data/skill_relations';
 
@@ -219,8 +219,55 @@ function businessInvestmentPopup(money, business){
 
   // visual remove fees
   business.updateCard();
+}
+// events are of the form:
+// ["Foreman\'s assistance", "The foreman agrees to hang around the place for a while, to show you the ropes.", 7, ['workers', 1], false]
+class BusinessEvent{
+  constructor(title, description, duration, effect, repeats=false, reverts=true){
+    this.title = title;
+    this.description = description
+    this.duration = duration; // q of days, or false
+    this.effect = effect; // [<affected item>, q]
+    this.repeats = repeats; // bool or number to reset duration to
+    this.reverts = reverts; // bool
 
+    this.parent = null; // id of parent
+  }
 
+  // TODO: find way to do this more dynamically
+  revert(){
+    var business = getBusiness(this.parent);
+    if (-1 < ['workers'].indexOf(this.effect[0])) {
+      business[this.effect[0]] -= this.effect[1];
+    }
+    console.log(`DELME reverting ${this.title}`);
+  }
+
+  activate(){
+    var business = getBusiness(this.parent);
+    if (-1 < ['workers'].indexOf(this.effect[0])) {
+      business[this.effect[0]] += this.effect[1];
+    }
+    console.log(`DELME activating ${this.title}`);
+  }
+
+  progress(q=1){
+    // only need to reduce duration if there is a duration
+    if (typeof this.duration == 'number'){
+      if (this.duration - q < 1){
+        this.revert();
+
+        if (this.repeats){
+          this.activate();
+          this.duration = this.repeats;
+        } else {
+          console.log(`Duration of ${this.title} has ended.`)
+        }
+      } else {
+        this.duration -= q;
+      }
+    }
+  }
 }
 
 class Business{
@@ -259,6 +306,10 @@ class Business{
     this.dailyReport = "";
     this.weekSummary = "";
 
+    // used for short-term effects, of form [<name>, <description>, <duration in days>\\" ", <effect>, <repeat?>]
+    // ["Foreman\'s assistance", 7, [this.workers, 1], false]
+    this.currentEvents = [];
+
     console.log(this.title + " created!");
   }
 
@@ -286,6 +337,14 @@ class Business{
     }
 
     return businessTemplate;
+  }
+
+  addEvent(event){
+    console.log('Adding Event');
+    this.currentEvents.push(event);
+    var eventIndex = this.currentEvents.length - 1;
+    this.currentEvents[eventIndex].parent = this.id;
+    this.currentEvents[eventIndex].activate();
   }
 
   activateButtons(){
@@ -421,8 +480,6 @@ class Business{
 
   }
 
-
-  // TODO: make actually update instead of replace
   updateCard(){
     if (0 < $(`#${this.id}-container`).length){
       var freshCard = this.card;
@@ -453,13 +510,24 @@ class Business{
 
   formatPaydays(){
     if (this.days.length < 1){
-      // shouldn't really happen, but nbd
-      this.dailyReport = '<p>...</p>';
+      // Occurs when the week begins, ends when first day has passed.
+      this.dailyReport = '<p>The week begins.</p>';
     } else {
       var modifiers = (day) => day['mod'].totVal != 0;
       modifiers = this.days.some(modifiers);
       var multipliers = (day) => day['mult'].totVal != 1;
       multipliers = this.days.some(multipliers);
+
+      // events are of the form:
+      // ["Foreman\'s assistance", 7, ['workers', 1], false]
+      this.currentEvents.forEach(event => {
+        Object.setPrototypeOf(event, BusinessEvent.prototype);
+        if (event.effect[0] == 'modifiers'){
+          modifiers += event.effect[1];
+        } else if (event.effect[0] == 'multipliers'){
+          multipliers *= event.effect[1];
+        }
+      });
 
       var htmlString = `
         <table class="table table-condensed">
@@ -508,8 +576,17 @@ class Business{
           </tbody>
         </table>`
 
+      this.currentEvents.forEach(event =>{
+        event.progress();
+      });
+      // remove any events w/ duration of 0
+      this.currentEvents = this.currentEvents.filter(function(event){
+        return event.duration != 0;
+      });
+
       // Set the values
       this.dailyReport = htmlString;
+
     }
 
     this.updateCard();
@@ -797,4 +874,4 @@ class Business{
   }
 }
 
-export {Business, CRYSTALCHANCE, upgradeList};
+export {Business, BusinessEvent, CRYSTALCHANCE, upgradeList};

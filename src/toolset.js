@@ -366,7 +366,7 @@ function getBusiness(businessId){
         return gameVars.ownedBusinesses[busIndex];
       }
     }
-  } else if (typeof businessId == Business){
+  } else if ('id' in businessId){
     for (let busIndex in gameVars.ownedBusinesses){
       if (gameVars.ownedBusinesses[busIndex].id == businessId.id){
         return gameVars.ownedBusinesses[busIndex];
