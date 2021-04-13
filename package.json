@@ -1,12 +1,12 @@
 {
   "name": "Whatsit_Time_Shuttered",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "a tool for me to learn basic web dev",
   "main": "./src/index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./build/webpack.config.js",
     "build": "npm --no-git-tag-version version patch && webpack --config ./build/webpack.config.js",
-    "publish": "echo publishing v$npm_package_version && cp -r ./dist/* ../website/ && cd ../website && git add . && git commit -m\"auto-deploy for v$npm_package_version\" && git push origin master"
+    "publish": "echo publishing v$npm_package_version && cp -r ./dist/* ../website/ && cd ../website && git checkout -b v$npm_package_version && git add . && git commit -m\"auto-deploy for v$npm_package_version\" && git push origin v$npm_package_version"
   },
   "author": "@gapatterson",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "postcss-loader": "^4.0.0",
     "precompile-handlebars": "^1.0.5",
     "sass-loader": "^10.0.2",
-    "webpack": "^4.44.1",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }
